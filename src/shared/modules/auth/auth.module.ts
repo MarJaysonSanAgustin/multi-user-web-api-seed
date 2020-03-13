@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
+
 import { DatabaseModule } from 'src/database/database.module';
+import { AccountModule } from '../account/account.module';
 import { IsAdminGuard } from './guards/admin-role.guard';
 import { IsCustomerGuard } from './guards/customer-role.guard';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 import { AuthService } from './auth.service';
-import { AccountModule } from '../account/account.module';
 
 @Module({
    imports: [
@@ -13,11 +16,20 @@ import { AccountModule } from '../account/account.module';
    providers: [
       IsAdminGuard,
       IsCustomerGuard,
-      AuthService
+
+      LocalStrategy,
+      JwtStrategy,
+
+      AuthService,
    ],
    exports: [
       IsAdminGuard,
-      IsCustomerGuard
+      IsCustomerGuard,
+
+      LocalStrategy,
+      JwtStrategy,
+
+      AuthService,
    ]
 })
 export class AuthModule { }
