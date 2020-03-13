@@ -10,7 +10,6 @@ export const AccountSchema = new Schema({
       type: String,
       lowercase: true,
       trim: true,
-      unique: true,
    },
    password:
    {
